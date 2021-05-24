@@ -1,0 +1,95 @@
+class Client {
+    nombre: String,
+    apellido1: String,
+    apellido2: String,
+    numCedula: String,
+    fechaRegistro: Date,
+    fechaUltimaVisita: Date
+}
+
+class ContactoPropietario{
+    numTelefono: String,
+    numCelular: String,
+    direccion: String
+}
+
+class TipoPropietario{
+    codigo: Integer,
+    descripcion: String
+}
+
+class Vehicle{
+    numPlaca: String,
+    bin: String,
+    modelo: String,
+    añoFabricacion: Integer,
+    fechaRegistro: Date,
+    fechaUltimaVisita: Date
+}
+
+class Replacement {
+    nombre: String, 
+    precioIndicado: Double
+}
+
+class ReplacementUsed {
+    cantidad: Integer,
+    propio: Boolean,
+    precio: Double,
+    descuento: Double
+}
+
+class Invoice {
+    precioRepuesto: Double,
+    precioManoObra: Double
+}
+
+class Revision{
+    fechaEntrada: Date,
+    diagnostico: String,
+    trabajoRealizado: String,
+    kilomEntrada: Integer,
+    precioManoObra: Double
+}
+
+enum Status {
+    POR_CONFIRMAR,
+    NEGADO,
+    EN_MANTENIMIENTO,
+    FINALIZADO
+}
+
+class Labor {
+    trabajoRealizado: String,
+    horasEmpleadas: Integer
+}
+
+class Worker {
+    nombre: String,
+    apellido1: String,
+    apellido2: String,
+    numCedula: String,
+    fechaRegistro: Date,
+    fechaUltimaVisita: Date    
+}
+
+class Documents {
+    nombre: String,
+    descripcion: String,
+    fechaAlta: Date,
+    contenido: bytes[]
+    
+
+}
+
+Client  *--> ContactoPropietario
+Vehicle  *--> TipoPropietario
+Client "1" o--> "1..N" Vehicle
+Vehicle "1" o--> "1..N" Revision
+Revision "1" o--> "0..N" ReplacementUsed
+Revision "1" o--> "0..N" Invoice
+Revision *--> Status
+Revision "1" o--> "0..N" Labor
+Labor *--> Worker
+ReplacementUsed *--> Replacement
+Revision "1" o--> "0..N" Documents
