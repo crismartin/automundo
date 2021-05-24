@@ -1,0 +1,82 @@
+
+class User
+
+class Client
+class Worker
+class Manager
+
+class Car
+
+class Automundo
+
+class Actions
+class ActionsClient
+class ActionsCar
+class ActionsReplacement
+
+class AddCar
+class DetailsCar
+class RemoveCar
+class AddClient
+class SearchClient
+class SearchCar
+
+class Revision
+class Labor
+class Replacement
+class Invoice
+
+class CRUDReplacement
+class SearchReplacement
+
+class CRUDRevision
+class SearchRevision
+enum Status{
+    POR_CONFIRMAR,
+    NEGADO,
+    EN_MANTENIMIENTO,
+    FINALIZADO
+}
+
+Manager ...> Actions
+
+Client "1" *--> "1..N" Car
+
+Automundo --> User
+Automundo "1"--->"1..N" Worker
+User ^---> Manager
+Automundo --> Client
+Automundo o---> Actions
+Revision *---> Status
+Revision "1" o---> "0..N" Documents
+
+Actions ^---> ActionsClient
+Actions ^---> ActionsCar
+Actions ^---> ActionsReplacement
+Actions ^---> ActionsRevision
+Actions ^---> ActionsLabor
+
+ActionsCar ^---> AddCar
+ActionsCar ^---> DetailsCar
+ActionsCar ^---> RemoveCar
+ActionsCar ^---> SearchCar
+
+ActionsClient ^---> AddClient
+ActionsClient ^---> SearchClient
+
+ActionsReplacement ^---> CRUDReplacement
+ActionsReplacement ^---> SearchReplacement
+
+ActionsRevision ^---> CRUDRevision
+ActionsRevision ^---> SearchRevision
+
+ActionsLabor ^---> CRUDLabor
+ActionsLabor ^---> SearchLabor
+
+
+Car "1" *--> "0..N" Revision
+Revision "1" o---> "0..N" Replacement
+Revision  ---> Invoice
+Revision "0" o---> "1..N" Labor
+Labor "1" *--> "1..N" Worker
+
