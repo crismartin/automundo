@@ -1,95 +1,98 @@
-class Client {
-    nombre: String,
-    apellido1: String,
-    apellido2: String,
-    numCedula: String,
-    fechaRegistro: Date,
-    fechaUltimaVisita: Date
+class Customer {
+    _id: String
+    identificationId: String
+    registrationDate: Date
+    lastVisitDate: Date
+    phone: String
+    mobilPhone: String
+    address: String
+    email: String
+    name: String
+    surName: String
+    secondSurName: String
+    leaveDate: Date
 }
 
-class ContactoPropietario{
-    numTelefono: String,
-    numCelular: String,
-    direccion: String
-}
 
-class TipoPropietario{
-    codigo: Integer,
-    descripcion: String
+class VehicleType{
+    _id: String
+    reference: Integer
+    name: String
+    description: String
+    active: Boolean
 }
 
 class Vehicle{
-    numPlaca: String,
-    bin: String,
-    modelo: String,
-    añoFabricacion: Integer,
-    fechaRegistro: Date,
-    fechaUltimaVisita: Date
+    _id: String
+    reference: String
+    bin: String
+    plate: String
+    model: String
+    yearRelease: Integer
+    registerDate: Date
+    lastViewDate: Date
+    typeNumber: String
+    leaveDate: Date
 }
 
 class Replacement {
-    nombre: String, 
-    precioIndicado: Double
+    _id: String
+    reference: String
+    name: String
+    price: BigDecimal
+    description: String
+    active: Boolean
 }
 
 class ReplacementUsed {
-    cantidad: Integer,
-    propio: Boolean,
-    precio: Double,
-    descuento: Double
+    _id: String
+    reference: String
+    quantity: Integer
+    price: BigDecimal
+    discount: Integer
 }
 
-class Invoice {
-    precioRepuesto: Double,
-    precioManoObra: Double
-}
 
 class Revision{
-    fechaEntrada: Date,
-    diagnostico: String,
-    trabajoRealizado: String,
-    kilomEntrada: Integer,
-    precioManoObra: Double
+    _id: String
+    reference: String
+    diagnostic: String
+    registerDate: Date
+    initialKilometers: Integer
+    workedHours: Integer
+    workDescription: String
+    departureDate: Date
+    cost: BigDecimal
+    leaveDate: Date
 }
 
 enum Status {
-    POR_CONFIRMAR,
-    NEGADO,
-    EN_MANTENIMIENTO,
+    POR_CONFIRMAR
+    NEGADO
+    EN_MANTENIMIENTO
     FINALIZADO
 }
 
-class Labor {
-    trabajoRealizado: String,
-    horasEmpleadas: Integer
+
+class Technician {
+    _id: String
+    identificationId: String
+    ssNumber: String
+    registrationDate: Date
+    leaveDate: Date
+    mobile: String
+    name: String
+    surName: String
+    secondSurName: String
+    active: String
 }
 
-class Worker {
-    nombre: String,
-    apellido1: String,
-    apellido2: String,
-    numCedula: String,
-    fechaRegistro: Date,
-    fechaUltimaVisita: Date    
-}
 
-class Documents {
-    nombre: String,
-    descripcion: String,
-    fechaAlta: Date,
-    contenido: bytes[]
-    
 
-}
-
-Client  *--> ContactoPropietario
-Vehicle  *--> TipoPropietario
-Client "1" o--> "1..N" Vehicle
+Vehicle  *--> VehicleType
+Customer "1" o--> "1..N" Vehicle
 Vehicle "1" o--> "1..N" Revision
 Revision "1" o--> "0..N" ReplacementUsed
-Revision "1" o--> "0..N" Invoice
 Revision *--> Status
-Revision "1" o--> "0..N" Labor
-Labor *--> Worker
+Revision --> Technician
 ReplacementUsed *--> Replacement
-Revision "1" o--> "0..N" Documents
